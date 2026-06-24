@@ -89,6 +89,11 @@ button, input, textarea {
   width: 100%;
 }
 
+.apply-button {
+  width: 100%;
+  margin: 12px 0 0;
+}
+
 .app-shell {
   min-height: 100vh;
   display: grid;
@@ -223,6 +228,11 @@ button, input, textarea {
 .metric-card.green { background: var(--green); }
 .metric-card.amber { background: oklch(63% 0.12 72); }
 .metric-card.rose { background: var(--rose); }
+.metric-card.blue { background: oklch(49% 0.13 220); }
+
+.dashboard-metrics {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 
 .metric-grid.compact .metric-card {
   min-height: 112px;
@@ -421,6 +431,189 @@ button, input, textarea {
   font-size: 32px;
 }
 
+.apply-page {
+  min-height: 100vh;
+  padding: 28px clamp(18px, 5vw, 72px) 56px;
+  background:
+    linear-gradient(140deg, oklch(94% 0.026 232), oklch(98% 0.012 180) 58%, oklch(92% 0.032 70)),
+    oklch(96% 0.012 235);
+}
+
+.apply-hero {
+  max-width: 1080px;
+  margin: 0 auto 22px;
+}
+
+.apply-hero h1 {
+  margin: 10px 0;
+  font-size: clamp(34px, 4.4vw, 58px);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.apply-hero p {
+  max-width: 760px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.apply-form {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+.form-section {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 18px 42px oklch(35% 0.035 245 / 8%);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.section-head > span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: oklch(27% 0.06 247);
+  color: oklch(98% 0.012 235);
+  font-weight: 800;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.section-head p {
+  margin: 5px 0 0;
+  color: var(--text-muted);
+}
+
+.section-head .el-button {
+  margin-left: auto;
+}
+
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.form-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid.four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.activity-table,
+.honor-list {
+  display: grid;
+  gap: 12px;
+}
+
+.activity-row {
+  display: grid;
+  grid-template-columns: 110px minmax(180px, 1fr) 150px 150px 70px;
+  gap: 10px;
+  align-items: center;
+}
+
+.honor-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px;
+  gap: 10px;
+  align-items: center;
+}
+
+.opinion-grid {
+  margin-top: 18px;
+}
+
+.apply-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 0;
+  background: linear-gradient(180deg, transparent, oklch(96% 0.012 235) 35%);
+}
+
+.review-admin {
+  display: grid;
+  gap: 18px;
+}
+
+.application-detail {
+  display: grid;
+  gap: 18px;
+}
+
+.detail-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px;
+  border-radius: 8px;
+  background: oklch(95% 0.018 235);
+}
+
+.detail-head h2 {
+  margin: 6px 0;
+}
+
+.detail-head span,
+.muted {
+  color: var(--text-muted);
+}
+
+.detail-section {
+  display: grid;
+  gap: 12px;
+}
+
+.detail-section h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.honor-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.opinion-view {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: oklch(98% 0.008 235);
+}
+
+.opinion-view p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+.drawer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
 @media (max-width: 980px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -452,6 +645,16 @@ button, input, textarea {
     grid-template-columns: 1fr;
   }
 
+  .dashboard-metrics,
+  .form-grid.two,
+  .form-grid.four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .activity-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .task-row {
     grid-template-columns: 1fr;
   }
@@ -481,9 +684,23 @@ button, input, textarea {
     flex-direction: column;
   }
 
+  .dashboard-metrics,
+  .form-grid.two,
+  .form-grid.four,
+  .activity-row {
+    grid-template-columns: 1fr;
+  }
+
+  .section-head {
+    flex-direction: column;
+  }
+
+  .section-head .el-button {
+    margin-left: 0;
+  }
+
   .user-box {
     width: 100%;
     justify-content: space-between;
   }
 }
-

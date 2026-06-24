@@ -1,4 +1,5 @@
 export type UserRole = 'admin' | 'expert';
+export type ApplicationStatus = 'pending' | 'approved' | 'rejected';
 
 export const users = [
   { id: 1, username: 'admin', password: '123456', role: 'admin' as UserRole, displayName: '平台管理员' },
@@ -33,5 +34,45 @@ export const tasks = [
 export const scores = [
   { id: 1, taskId: 2, innovationScore: 31, practiceScore: 34, presentationScore: 24, totalScore: 89, comment: '作品完成度较高，交互路径清晰，建议补充用户测试数据。' },
   { id: 2, taskId: 4, innovationScore: 30, practiceScore: 32, presentationScore: 23, totalScore: 85, comment: '应用场景明确，算法说明还可以进一步量化。' }
+];
+
+export const expertApplications = [
+  {
+    id: 1,
+    track: '信息技术应用创新',
+    majorCategory: '电子与信息大类',
+    name: '赵晴',
+    gender: '女',
+    ethnicity: '汉族',
+    birthMonth: '1987-09',
+    phone: '13900000001',
+    politicsStatus: '中共党员',
+    educationDegree: '硕士研究生',
+    healthStatus: '良好',
+    email: 'zhaoqing@example.com',
+    workplace: '西红市职业技术学院',
+    workYears: 12,
+    position: '教研室主任',
+    specialtyDirection: '云计算应用、Web 前端开发',
+    titleQualification: '副教授',
+    idCard: '110101198709010021',
+    unitOpinion: '同意推荐该教师进入专家库。',
+    instituteOpinion: '',
+    departmentOpinion: '',
+    finalOpinion: '',
+    status: 'pending' as ApplicationStatus,
+    reviewOpinion: '',
+    createdAt: '2026-06-20 10:30:00',
+    reviewedAt: ''
+  }
+];
+
+export const expertApplicationActivities = [
+  { id: 1, applicationId: 1, year: '2025', eventName: '职业院校技能大赛软件测试赛项', competitionLevel: '省赛', duty: '裁判' },
+  { id: 2, applicationId: 1, year: '2024', eventName: 'Web 技术应用赛项', competitionLevel: '市赛', duty: '评审专家' }
+];
+
+export const expertApplicationHonors = [
+  { id: 1, applicationId: 1, honorName: '西红市优秀指导教师' }
 ];
 

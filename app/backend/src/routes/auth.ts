@@ -52,7 +52,9 @@ authRouter.post('/login', async (req, res) => {
       res.status(401).json({ message: '账号或密码错误' });
       return;
     }
+
     const { password: _password, ...safeUser } = user;
     res.json(safeUser);
   }
 });
+

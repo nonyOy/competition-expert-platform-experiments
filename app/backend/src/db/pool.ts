@@ -1,4 +1,4 @@
-import mysql, { type QueryOptions } from 'mysql2/promise';
+import mysql, { type QueryOptions, type ResultSetHeader } from 'mysql2/promise';
 
 export const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
@@ -14,4 +14,9 @@ export const pool = mysql.createPool({
 export async function queryRows<T>(sql: string, params: Record<string, unknown> = {}) {
   const [rows] = await pool.execute({ sql, values: params } as QueryOptions);
   return rows as T[];
+}
+
+export async function executeSql(sql: string, params: Record<string, unknown> = {}) {
+  const [result] = await pool.execute({ sql, values: params } as QueryOptions);
+  return result as ResultSetHeader;
 }

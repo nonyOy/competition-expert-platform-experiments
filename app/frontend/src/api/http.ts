@@ -57,6 +57,52 @@ export interface ReviewTask extends Partial<Work> {
   comment?: string;
 }
 
+export type ApplicationStatus = 'pending' | 'approved' | 'rejected';
+
+export interface ExpertApplicationActivity {
+  id?: number;
+  year: string;
+  eventName: string;
+  competitionLevel: string;
+  duty: string;
+}
+
+export interface ExpertApplicationHonor {
+  id?: number;
+  honorName: string;
+}
+
+export interface ExpertApplication {
+  id?: number;
+  track: string;
+  majorCategory: string;
+  name: string;
+  gender: string;
+  ethnicity: string;
+  birthMonth: string;
+  phone: string;
+  politicsStatus: string;
+  educationDegree: string;
+  healthStatus: string;
+  email: string;
+  workplace: string;
+  workYears: number;
+  position: string;
+  specialtyDirection: string;
+  titleQualification: string;
+  idCard: string;
+  unitOpinion?: string;
+  instituteOpinion?: string;
+  departmentOpinion?: string;
+  finalOpinion?: string;
+  status?: ApplicationStatus;
+  reviewOpinion?: string;
+  createdAt?: string;
+  reviewedAt?: string;
+  activities: ExpertApplicationActivity[];
+  honors: ExpertApplicationHonor[];
+}
+
 export async function login(username: string, password: string) {
   const { data } = await http.post<UserInfo>('/auth/login', { username, password });
   return data;
@@ -95,6 +141,26 @@ export async function submitScore(payload: {
   comment: string;
 }) {
   const { data } = await http.post('/scores', payload);
+  return data;
+}
+
+export async function submitExpertApplication(payload: ExpertApplication) {
+  const { data } = await http.post('/expert-applications', payload);
+  return data;
+}
+
+export async function fetchExpertApplications(status?: ApplicationStatus) {
+  const { data } = await http.get<ExpertApplication[]>('/expert-applications', { params: { status } });
+  return data;
+}
+
+export async function fetchExpertApplication(id: number) {
+  const { data } = await http.get<ExpertApplication>(`/expert-applications/${id}`);
+  return data;
+}
+
+export async function reviewExpertApplication(id: number, status: Exclude<ApplicationStatus, 'pending'>, reviewOpinion: string) {
+  const { data } = await http.post(`/expert-applications/${id}/review`, { status, reviewOpinion });
   return data;
 }
 

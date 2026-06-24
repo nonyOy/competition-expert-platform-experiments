@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS scores;
 DROP TABLE IF EXISTS review_tasks;
 DROP TABLE IF EXISTS announcements;
+DROP TABLE IF EXISTS expert_application_honors;
+DROP TABLE IF EXISTS expert_application_activities;
+DROP TABLE IF EXISTS expert_applications;
 DROP TABLE IF EXISTS works;
 DROP TABLE IF EXISTS experts;
 DROP TABLE IF EXISTS competitions;
@@ -32,10 +35,56 @@ CREATE TABLE experts (
     name VARCHAR(80) NOT NULL,
     title VARCHAR(80),
     specialty VARCHAR(120),
-    phone VARCHAR(30),
+    phone VARCHAR(30) UNIQUE,
     email VARCHAR(120),
     enabled TINYINT(1) NOT NULL DEFAULT 1,
     FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE expert_applications (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    track VARCHAR(120) NOT NULL,
+    major_category VARCHAR(120) NOT NULL,
+    name VARCHAR(80) NOT NULL,
+    gender VARCHAR(20),
+    ethnicity VARCHAR(40),
+    birth_month VARCHAR(20),
+    phone VARCHAR(30) NOT NULL,
+    politics_status VARCHAR(80),
+    education_degree VARCHAR(80),
+    health_status VARCHAR(80),
+    email VARCHAR(120),
+    workplace VARCHAR(160),
+    work_years INT DEFAULT 0,
+    position VARCHAR(100),
+    specialty_direction VARCHAR(200),
+    title_qualification VARCHAR(120),
+    id_card VARCHAR(40),
+    unit_opinion TEXT,
+    institute_opinion TEXT,
+    department_opinion TEXT,
+    final_opinion TEXT,
+    status ENUM('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    review_opinion TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at TIMESTAMP NULL
+);
+
+CREATE TABLE expert_application_activities (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    application_id BIGINT NOT NULL,
+    year VARCHAR(20),
+    event_name VARCHAR(160),
+    competition_level VARCHAR(60),
+    duty VARCHAR(80),
+    FOREIGN KEY (application_id) REFERENCES expert_applications(id) ON DELETE CASCADE
+);
+
+CREATE TABLE expert_application_honors (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    application_id BIGINT NOT NULL,
+    honor_name VARCHAR(160) NOT NULL,
+    FOREIGN KEY (application_id) REFERENCES expert_applications(id) ON DELETE CASCADE
 );
 
 CREATE TABLE works (
@@ -98,6 +147,18 @@ INSERT INTO competitions (name, category, status, start_date, end_date, descript
 INSERT INTO experts (user_id, name, title, specialty, phone, email, enabled) VALUES
 (2, '李明', '副教授', '数字媒体设计、交互体验', '13800000001', 'liming@example.com', 1),
 (3, '王宁', '高级工程师', '软件工程、人工智能应用', '13800000002', 'wangning@example.com', 1);
+
+INSERT INTO expert_applications
+(track, major_category, name, gender, ethnicity, birth_month, phone, politics_status, education_degree, health_status, email, workplace, work_years, position, specialty_direction, title_qualification, id_card, unit_opinion, status)
+VALUES
+('信息技术应用创新', '电子与信息大类', '赵晴', '女', '汉族', '1987-09', '13900000001', '中共党员', '硕士研究生', '良好', 'zhaoqing@example.com', '西红市职业技术学院', 12, '教研室主任', '云计算应用、Web 前端开发', '副教授', '110101198709010021', '同意推荐该教师进入专家库。', 'pending');
+
+INSERT INTO expert_application_activities (application_id, year, event_name, competition_level, duty) VALUES
+(1, '2025', '职业院校技能大赛软件测试赛项', '省赛', '裁判'),
+(1, '2024', 'Web 技术应用赛项', '市赛', '评审专家');
+
+INSERT INTO expert_application_honors (application_id, honor_name) VALUES
+(1, '西红市优秀指导教师');
 
 INSERT INTO works (competition_id, title, author, organization, summary, status) VALUES
 (1, '城市记忆交互影像系统', '张晨', '数字媒体 2301 班', '基于城市老照片与实时交互装置的沉浸式作品。', 'assigned'),

@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { DataAnalysis, Finished, FolderChecked, Grid, Medal, Tickets, UserFilled } from '@element-plus/icons-vue';
+import { DataAnalysis, DocumentChecked, Finished, FolderChecked, Grid, Medal, Tickets, UserFilled } from '@element-plus/icons-vue';
 import { useAuthStore } from '../store/auth';
 
 const auth = useAuthStore();
@@ -48,6 +48,7 @@ const adminMenu = [
   { path: '/dashboard', label: '数据看板', icon: Grid },
   { path: '/competitions', label: '赛事管理', icon: Medal },
   { path: '/experts', label: '专家管理', icon: UserFilled },
+  { path: '/applications', label: '报名审核', icon: DocumentChecked },
   { path: '/works', label: '作品管理', icon: FolderChecked },
   { path: '/tasks', label: '任务分配', icon: Tickets },
   { path: '/statistics', label: '评分统计', icon: DataAnalysis }
